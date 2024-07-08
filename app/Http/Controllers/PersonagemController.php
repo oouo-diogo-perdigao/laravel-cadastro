@@ -33,6 +33,17 @@ class PersonagemController extends Controller
 		$validator = Validator::make($request->all(), [
 			'nome' => 'required',
 			'imagem' => 'required|file|max:10240', // Aceita apenas arquivos até 10240 KB
+
+			'cpf' => 'required|digits:11',
+			'cep' => 'required|regex:/^\d{5}-?\d{3}$/',
+			'pais' => 'required|string|max:255',
+			'estado' => 'required|string|max:2',
+			'cidade' => 'required|string|max:255',
+			'bairro' => 'required|string|max:255',
+			'rua' => 'required|string|max:255',
+			'numero' => 'required|string|max:255',
+			'complemento' => 'nullable|string|max:255',
+			'referencia' => 'nullable|string|max:255',
 		]);
 
 		if ($validator->fails()) {
@@ -41,6 +52,16 @@ class PersonagemController extends Controller
 
 		$personagem = new Personagem();
 		$personagem->nome = $request->nome;
+		$personagem->cpf = $request->cpf;
+		$personagem->cep = $request->cep;
+		$personagem->pais = $request->pais;
+		$personagem->estado = $request->estado;
+		$personagem->cidade = $request->cidade;
+		$personagem->bairro = $request->bairro;
+		$personagem->rua = $request->rua;
+		$personagem->numero = $request->numero;
+		$personagem->complemento = $request->complemento;
+		$personagem->referencia = $request->referencia;
 
 		if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
 			$imagem = $request->file('imagem');

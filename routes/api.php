@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PersonagemController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\EnderecoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,6 @@ Route::middleware('auth.google')->group(function () {
 	Route::put('personagem/{id}', [PersonagemController::class, 'update']);
 	Route::post('personagem', [PersonagemController::class, 'store']);
 	Route::delete('personagem/{id}', [PersonagemController::class, 'destroy']);
+
+	Route::get('buscar-cep/{cep}', [EnderecoController::class, 'buscarCep']);
 });
