@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PersonagemController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,19 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-	return $request->user();
-});
-
-use App\Http\Controllers\PersonagemController;
-
-Route::get('personagem', [PersonagemController::class, 'index']);
-Route::get('personagem/{id}', [PersonagemController::class, 'show']);
-Route::put('personagem/{id}', [PersonagemController::class, 'update']);
-Route::post('personagem', [PersonagemController::class, 'store']);
-Route::delete('personagem/{id}', [PersonagemController::class, 'destroy']);
-
-use App\Http\Controllers\LoginController;
 
 Route::post('/login/google', [LoginController::class, 'google']);
 Route::post('/logout', [LoginController::class, 'logout']);
+
+
+// Rotas protegidas pelo middleware auth:sanctum
+Route::middleware('auth.google')->group(function () {
+	Route::get('/user', function (Request $request) {
+		return $request->user();
+	});
+
+	Route::get('personagem', [PersonagemController::class, 'index']);
+	Route::get('personagem/{id}', [PersonagemController::class, 'show']);
+	Route::put('personagem/{id}', [PersonagemController::class, 'update']);
+	Route::post('personagem', [PersonagemController::class, 'store']);
+	Route::delete('personagem/{id}', [PersonagemController::class, 'destroy']);
+});
