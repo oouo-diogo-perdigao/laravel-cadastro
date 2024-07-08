@@ -29,9 +29,9 @@ Route::middleware('auth.google')->group(function () {
 	});
 
 	Route::get('personagem', [PersonagemController::class, 'index']);
+	Route::post('personagem', [PersonagemController::class, 'store']);
 	Route::get('personagem/{id}', [PersonagemController::class, 'show']);
 	Route::put('personagem/{id}', [PersonagemController::class, 'update']);
-	Route::post('personagem', [PersonagemController::class, 'store']);
 	Route::delete('personagem/{id}', [PersonagemController::class, 'destroy']);
 
 	Route::get('buscar-cep/{cep}', [EnderecoController::class, 'buscarCep']);
